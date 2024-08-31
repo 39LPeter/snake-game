@@ -1,0 +1,171 @@
+<!-- <p>This line creates a <canvas> element with an ID of “gc” and dimensions of 400x400 pixels. The canvas is where the game will be drawn.
+window.onload = function() { ... }: This function runs when the window has finished loading.
+canv = document.getElementById("gc");: Gets the canvas element by its ID.
+ctx = canv.getContext("2d");: Gets the 2D drawing context for the canvas.
+document.addEventListener("keydown", KeyPush);: Adds an event listener for keydown events, calling the KeyPush function when a key is pressed.
+setInterval(game, 1000 / 15);: Calls the game function 15 times per second (1000ms / 15).
+px = py = 10;: Player’s starting position.
+gs = tc = 20;: Grid size and total cells.
+ax = ay = 15;: Apple’s starting position.
+xv = yv = 0;: Velocity in x and y directions.
+trail = [];: Array to store the snake’s trail.
+tail = 5;: Initial length of the snake’s tail.
+px += xv; py += yv;: Updates the player’s position based on velocity.
+Boundary checks: Wraps the player around if they go off the grid.
+ctx.fillStyle = "black"; ctx.fillRect(0, 0, canv.width, canv.height);: Clears the canvas.
+Draws the snake: Iterates through the trail array and draws each segment.
+Collision check: Resets the tail length if the player collides with itself.
+Updates the trail: Adds the new position to the trail and removes the oldest if the trail is too long.
+Apple collision: Increases the tail length and moves the apple to a new random position if the player eats the apple.
+Draws the apple.
+switch (evt.keyCode) { ... }: Changes the velocity based on the arrow key pressed.</p>-->
+
+
+<canvas id="gc" width="400" height="400"></canvas>
+<script>
+    window.onload = function() {
+        canv = document.getElementById("gc");
+        ctx = canv.getContext("2d");
+        document.addEventListener("keydown", KeyPush);
+        setInterval(game, 1000 / 15);
+    }
+    px = py = 10;
+    gs = tc = 20;
+    ax = ay = 15;
+    xv = yv = 0;
+    trail = [];
+    tail = 5;
+
+    function game() {
+        px += xv;
+        py += yv;
+        if (px < 0) {
+            px = tc - 1;
+        }
+        if (px > tc - 1) {
+            px = 0;
+        }
+        if (py < 0) {
+            py = tc - 1;
+        }
+        if (py > tc - 1) {
+            py = 0;
+        }
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canv.width, canv.height);
+
+        ctx.fillStyle = "lime";
+        for (var i = 0; i < trail.length; i++) {
+            ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2, gs - 2);
+            if (trail[i].x == px && trail[i].y == py) {
+                tail = 5;
+            }
+        }
+
+        trail.push({ x: px, y: py });
+        while (trail.length > tail) {
+            trail.shift();
+        }
+
+        if (ax == px && ay == py) {
+            tail++;
+            ax = Math.floor(Math.random() * tc);
+            ay = Math.floor(Math.random() * tc);
+        }
+
+        ctx.fillStyle = "red";
+        ctx.fillRect(ax * gs, ay * gs, gs - 2, gs - 2);
+    }
+
+    function KeyPush(evt) {
+        switch (evt.keyCode) {
+            case 37:
+                xv = -1; yv = 0;
+                break;
+            case 38:
+                xv = 0; yv = -1;
+                break;
+            case 39:
+                xv = 1; yv = 0;
+                break;
+            case 40:
+                xv = 0; yv = 1;
+                break;
+        }
+    }
+</script>
+<canvas id="gc" width="400" height="400"></canvas>
+<script>
+    window.onload = function() {
+        canv = document.getElementById("gc");
+        ctx = canv.getContext("2d");
+        document.addEventListener("keydown", KeyPush);
+        setInterval(game, 1000 / 15);
+    }
+    px = py = 10;
+    gs = tc = 20;
+    ax = ay = 15;
+    xv = yv = 0;
+    trail = [];
+    tail = 5;
+
+    function game() {
+        px += xv;
+        py += yv;
+        if (px < 0) {
+            px = tc - 1;
+        }
+        if (px > tc - 1) {
+            px = 0;
+        }
+        if (py < 0) {
+            py = tc - 1;
+        }
+        if (py > tc - 1) {
+            py = 0;
+        }
+
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canv.width, canv.height);
+
+        ctx.fillStyle = "lime";
+        for (var i = 0; i < trail.length; i++) {
+            ctx.fillRect(trail[i].x * gs, trail[i].y * gs, gs - 2, gs - 2);
+            if (trail[i].x == px && trail[i].y == py) {
+                tail = 5;
+            }
+        }
+
+        trail.push({ x: px, y: py });
+        while (trail.length > tail) {
+            trail.shift();
+        }
+
+        if (ax == px && ay == py) {
+            tail++;
+            ax = Math.floor(Math.random() * tc);
+            ay = Math.floor(Math.random() * tc);
+        }
+
+        ctx.fillStyle = "red";
+        ctx.fillRect(ax * gs, ay * gs, gs - 2, gs - 2);
+    }
+
+    function KeyPush(evt) {
+        switch (evt.keyCode) {
+            case 37:
+                xv = -1; yv = 0;
+                break;
+            case 38:
+                xv = 0; yv = -1;
+                break;
+            case 39:
+                xv = 1; yv = 0;
+                break;
+            case 40:
+                xv = 0; yv = 1;
+                break;
+        }
+    }
+</script>
